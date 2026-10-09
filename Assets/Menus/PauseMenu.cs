@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pausePanel; // drag PausePanel here
+    public GameObject pausePanel;  // drag PausePanel here
+    public GameObject firstButton; // drag the Resume button here
     private bool isPaused;
 
     void Start()
@@ -24,8 +26,12 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         pausePanel.SetActive(true);
-        Time.timeScale = 0f; // freezes movement, physics and spawning in all 3 games
+        Time.timeScale = 0f; // freezes movement, physics and spawning
         isPaused = true;
+
+        // Highlight Resume so arrow keys + Enter work straight away
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     public void Resume()
